@@ -27,16 +27,24 @@ public class PlayerInteraction : MonoBehaviour
             if (hit.collider.tag == "Interactable") //if looking at a interactable object
             {
                 Interactable newInteractable = hit.collider.GetComponent<Interactable>();
-
+                // if there is a currentInteractable and it is not the newInteractable
+                if (currentInteractable && newInteractable != currentInteractable)
+                {
+                    currentInteractable.DisableOutline();
+                }
                 if (newInteractable.enabled)
                 {
-
+                    SetNewCurrentInteractable(newInteractable);
+                }
+                else //if new interactable is not enabled
+                {
+                    DisableCurrentInteractable();
                 }
             }
             else // if not an interactable
             {
                 DisableCurrentInteractable();
-            }
+            } 
 
         }
         else //if nothing in reach
